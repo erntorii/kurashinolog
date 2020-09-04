@@ -28,9 +28,22 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# template engine
+gem 'slim-rails'
+gem 'html2slim'
+
+# layouts
+gem 'bootstrap'
+gem 'jquery-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # bundle install後、$rails g rspec:install を実行する
+  gem 'rspec-rails'
+  # テストデータの作成
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -40,6 +53,15 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # /bin配下にrspec実行ファイルを作成
+  # bundle install後、$bundle exec spring binstub rspec を実行する
+  gem 'spring-commands-rspec'
+end
+
+group :test do
+  # Chromeとやり取りするインターフェースになるChromeDriverをインストールするgem
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
