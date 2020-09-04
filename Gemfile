@@ -60,6 +60,9 @@ group :development do
 end
 
 group :test do
+  # ブラウザの操作をシミュレート
+  gem 'capybara'
+
   # Chromeとやり取りするインターフェースになるChromeDriverをインストールするgem
   gem 'webdrivers'
 end
