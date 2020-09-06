@@ -44,6 +44,9 @@ group :development, :test do
   gem 'rspec-rails'
   # テストデータの作成
   gem 'factory_bot_rails'
+
+  # 静的コード解析
+  gem 'rubocop'
 end
 
 group :development do
