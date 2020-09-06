@@ -38,7 +38,7 @@ gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # bundle install後、$rails g rspec:install を実行する
   gem 'rspec-rails'
@@ -60,7 +60,7 @@ group :development do
 
   # 静的コード解析ツール
   gem 'rubocop', require: false
-  gem 'rubocop-rails'
+  gem 'rubocop-rails', require: false
 end
 
 group :test do
@@ -72,4 +72,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
