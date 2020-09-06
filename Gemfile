@@ -44,9 +44,6 @@ group :development, :test do
   gem 'rspec-rails'
   # テストデータの作成
   gem 'factory_bot_rails'
-
-  # 静的コード解析
-  gem 'rubocop'
 end
 
 group :development do
@@ -60,6 +57,10 @@ group :development do
   # /bin配下にrspec実行ファイルを作成
   # bundle install後、$bundle exec spring binstub rspec を実行する
   gem 'spring-commands-rspec'
+
+  # 静的コード解析ツール
+  gem 'rubocop', require: false
+  gem 'rubocop-rails'
 end
 
 group :test do
