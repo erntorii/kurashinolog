@@ -1,0 +1,13 @@
+nav.navbar.navbar-expand-lg.navbar-light#welcome-index
+  .container.col-md-7
+    h1#welcome-message
+      | 家事のこと
+      br
+      | 日々の気づきや
+      br
+      | 思いを記録する
+    .justify-content-end
+      p 登録しないですべての機能*をお試し
+      = link_to 'かんたんログイン', '#', class: 'btn btn-light'
+      p.small.mt-5
+        | *すべての機能の詳細については、#{link_to 'こちら', about_path}をご参照ください。
