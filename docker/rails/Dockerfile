@@ -13,4 +13,4 @@ RUN bundle install -j4
 
 COPY . /app
 
-# RUN bundle exec rails assets:precompile
+RUN bundle exec rails assets:precompile
