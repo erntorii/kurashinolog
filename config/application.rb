@@ -42,5 +42,8 @@ module App
       g.controller_specs false
       g.request_specs false
     end
+
+    # 日本語化
+    config.i18n.default_locale = :ja
   end
 end
