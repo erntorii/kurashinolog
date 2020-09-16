@@ -37,6 +37,7 @@ gem 'rails-i18n', '~> 6.0'
 gem 'devise-i18n'
 
 # layouts
+gem 'bootstrap_form'
 gem 'devise-bootstrap-views', '~> 1.0'
 
 # 認証機能

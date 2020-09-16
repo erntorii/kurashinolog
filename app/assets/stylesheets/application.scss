@@ -1,4 +1,5 @@
 @import 'bootstrap/scss/bootstrap';
+@import 'rails_bootstrap_forms';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
 
 $theme-color: #a4b4b4;
@@ -47,6 +48,14 @@ header {
 #main {
   margin-top: 8em;
   margin-bottom: 4em;
+
+  .form-control {
+    border: 1px solid lighten($theme-color, 10%);
+    &:focus {
+      box-shadow: none;
+      border: 1px solid lighten($theme-color, 10%);
+    }
+  }
 
   .btn {
     background: $theme-color;
