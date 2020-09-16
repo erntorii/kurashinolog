@@ -1,6 +1,7 @@
 @import 'bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
 
+$theme-color: #a4b4b4;
 $mincho: 'Noto Serif JP', serif;
 
 #wrap {
@@ -28,7 +29,7 @@ header {
   margin-top: 4em;
   margin-bottom: -4em;
   height: 25em;
-  background: #a4b4b4;
+  background: $theme-color;
   color: white;
 
   #welcome-message {
@@ -45,6 +46,23 @@ header {
 
 #main {
   margin-top: 8em;
+  margin-bottom: 4em;
+
+  .btn {
+    background: $theme-color;
+    color: white;
+    &:hover {
+      background: lighten($theme-color, 10%)
+    }
+  }
+
+  a {
+    color: darken($theme-color, 10%);
+    text-decoration: underline;
+    &:hover {
+      color: $theme-color;
+    }
+  }
 }
 
 footer {
