@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :system do
+RSpec.describe 'Users', type: :system do
+  let(:user) { create(:user) }
+
   it 'get sign_up' do
     visit new_user_registration_path
     expect(page).to have_title '新規登録 - 暮らしのログ'
@@ -14,5 +16,26 @@ RSpec.describe "Users", type: :system do
   it 'get password/new' do
     visit new_user_password_path
     expect(page).to have_title 'パスワードの再設定 - 暮らしのログ'
+  end
+
+  it 'sign_up' do
+    visit new_user_registration_path
+    fill_in 'ユーザー名', with: 'テスター'
+    fill_in 'メールアドレス', with: 'tester@example.com'
+    fill_in 'パスワード', with: 'password'
+    fill_in 'パスワード（確認用）', with: 'password'
+
+    expect { click_button '新規登録' }.to change(User, :count).by(1)
+    expect(current_path).to eq root_path
+  end
+
+  it 'sign_in' do
+    visit new_user_session_path
+    fill_in 'メールアドレス', with: user.email
+    fill_in 'パスワード', with: user.password
+    click_button 'ログイン'
+
+    expect(current_path).to eq root_path
+    expect(page).to_not have_content 'かんたんログイン'
   end
 end

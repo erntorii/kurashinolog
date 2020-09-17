@@ -22,6 +22,11 @@ AllCops:
     - 'vendor/**/*'
     - '.git/**/*'
 
+# ブロック行数の制限を除外
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
 # 文字リテラルのイミュータブル宣言を無視（freezeになるのはRuby3以降）
 Style/FrozenStringLiteralComment:
   Enabled: false
