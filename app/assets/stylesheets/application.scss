@@ -5,6 +5,11 @@
 $theme-color: #a4b4b4;
 $mincho: 'Noto Serif JP', serif;
 
+// 共通
+.btn:active {
+  box-shadow: none;
+}
+
 #wrap {
   display: flex;
   flex-direction: column;

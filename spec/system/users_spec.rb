@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :system do
   let(:user) { create(:user) }
+  before do
+    ActionMailer::Base.deliveries.clear
+  end
 
   it 'get sign_up' do
     visit new_user_registration_path
@@ -27,6 +30,7 @@ RSpec.describe 'Users', type: :system do
 
     expect { click_button '新規登録' }.to change(User, :count).by(1)
     expect(current_path).to eq root_path
+    expect(page).to_not have_content 'かんたんログイン'
   end
 
   it 'sign_in' do
@@ -37,5 +41,11 @@ RSpec.describe 'Users', type: :system do
 
     expect(current_path).to eq root_path
     expect(page).to_not have_content 'かんたんログイン'
+  end
+
+  it 'reset_password' do
+    visit new_user_password_path
+    fill_in 'メールアドレス', with: user.email
+    expect { click_button 'パスワードの再設定方法を送信する' }.to change { ActionMailer::Base.deliveries.size }.by(1)
   end
 end

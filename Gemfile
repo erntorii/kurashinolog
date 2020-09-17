@@ -68,6 +68,9 @@ group :development do
   # 静的コード解析ツール
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+
+  # 環境変数の管理
+  gem 'dotenv-rails'
 end
 
 group :test do
