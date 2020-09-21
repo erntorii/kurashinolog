@@ -31,6 +31,8 @@ RSpec.describe 'Users', type: :system do
     expect { click_button '新規登録' }.to change(User, :count).by(1)
     expect(current_path).to eq root_path
     expect(page).to_not have_content 'かんたんログイン'
+    expect(page).to have_content '投稿する'
+    expect(page).to have_content 'テスター'
   end
 
   it 'sign_in' do
@@ -41,6 +43,8 @@ RSpec.describe 'Users', type: :system do
 
     expect(current_path).to eq root_path
     expect(page).to_not have_content 'かんたんログイン'
+    expect(page).to have_content '投稿する'
+    expect(page).to have_content user.name
   end
 
   it 'reset_password' do
