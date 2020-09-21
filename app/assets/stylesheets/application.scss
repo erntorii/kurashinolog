@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
 
 $theme-color: #a4b4b4;
+$red: #e44c24;
 $mincho: 'Noto Serif JP', serif;
 
 // 共通
@@ -79,7 +80,17 @@ header {
     color: white;
     border: none;
     &:hover {
-      background: lighten($theme-color, 10%)
+      background: lighten($theme-color, 10%);
+    }
+  }
+
+  #btn-cancel {
+    background: $red;
+    color: white;
+    border: none;
+    text-decoration: none;
+    &:hover {
+      background: lighten($red, 10%);
     }
   }
 

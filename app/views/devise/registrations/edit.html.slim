@@ -1,31 +1,13 @@
-h1
-  = t('.title', resource: resource_name.to_s.humanize)
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = bootstrap_devise_error_messages!
-  .form-group
-    = f.label :name
-    = f.text_field :name, autofocus: true, autocomplete: 'name', class: 'form-control'
-  .form-group
-    = f.label :email
-    = f.email_field :email, autocomplete: 'email', class: 'form-control'
-  .form-group
-    = f.label :password
-    = f.password_field :password, autocomplete: 'new-password', class: 'form-control'
-    small.form-text.text-muted
-      = t('.leave_blank_if_you_don_t_want_to_change_it')
-  .form-group
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'
-  .form-group
-    = f.label :current_password
-    = f.password_field :current_password, autocomplete: 'current-password', class: 'form-control'
-    small.form-text.text-muted
-      = t('.we_need_your_current_password_to_confirm_your_changes')
-  .form-group
-    = f.submit t('.update'), class: 'btn btn-primary'
-p
-  = t('.unhappy')
-  | ? 
-  = link_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete
-  | .
-= link_to t('.back'), :back
+.col-md-6.offset-md-3
+  = bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = f.text_field :name, autofocus: true, required: true
+    = f.email_field :email, required: true
+    = f.password_field :password, help: t('.leave_blank_if_you_don_t_want_to_change_it'), minlength: @minimum_password_length
+    = f.password_field :password_confirmation, minlength: @minimum_password_length
+    = f.password_field :current_password, required: true, help: t('.we_need_your_current_password_to_confirm_your_changes')
+    = f.form_group do
+      = f.submit t('.update'), class: 'btn btn-block'
+    hr.my-5
+    p アカウント削除
+    p.small.text-muted 一度アカウントを削除すると、二度と元に戻せません。十分ご注意ください。
+    = link_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete, class: 'btn btn-block', id: 'btn-cancel'
