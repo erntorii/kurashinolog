@@ -29,6 +29,18 @@ header {
   .nav-link {
     color: black;
   }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  #btn-post {
+    background: $theme-color;
+    color: white;
+    &:hover {
+      background: lighten($theme-color, 10%);
+    }
+  }
 }
 
 #welcome-index {

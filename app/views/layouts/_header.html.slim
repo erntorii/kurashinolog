@@ -2,7 +2,19 @@ header.navbar.fixed-top.navbar-expand-lg.navbar-light
   .container
     = link_to '暮らしのログ', root_path, class: 'navbar-brand'
     ul.nav.justify-content-end
-      li.nav-item
-        = link_to '新規登録', new_user_registration_path, class: 'nav-link btn border-dark'
-      li.nav-item
-        = link_to 'ログイン', new_user_session_path, class: 'nav-link'
+      - if user_signed_in?
+        li.nav-item.d-flex.align-items-center
+          = link_to '#' do
+            .nav-link.btn.btn-sm#btn-post
+              i.fas.fa-edit
+              span.ml-2.font-weight-bold 投稿する
+        li.nav-item.ml-2
+          = link_to '#' do
+            .nav-link.small
+              = image_tag 'default.jpg', alt: 'mypage', width: 40, height: 40, class: 'rounded-circle border'
+              span.ml-2 #{current_user.name}
+      - else
+        li.nav-item
+          = link_to '新規登録', new_user_registration_path, class: 'nav-link btn border-dark btn-sm'
+        li.nav-item
+          = link_to 'ログイン', new_user_session_path, class: 'nav-link small'
