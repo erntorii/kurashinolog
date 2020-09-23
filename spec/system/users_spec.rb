@@ -50,6 +50,9 @@ RSpec.describe 'Users', type: :system do
   it 'reset_password' do
     visit new_user_password_path
     fill_in 'メールアドレス', with: user.email
+
     expect { click_button 'パスワードの再設定方法を送信する' }.to change { ActionMailer::Base.deliveries.size }.by(1)
+    expect(current_path).to eq new_user_session_path
+    expect(page).to have_content 'パスワードの再設定について数分以内にメールでご連絡いたします。'
   end
 end

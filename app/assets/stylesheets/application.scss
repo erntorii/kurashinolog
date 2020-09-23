@@ -42,6 +42,11 @@ header {
       background: lighten($theme-color, 10%);
     }
   }
+
+  .dropdown-item:active {
+    background: #f8f9fa;
+    color: black;
+  }
 }
 
 #welcome-index {
