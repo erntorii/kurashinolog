@@ -65,4 +65,7 @@ RSpec.configure do |config|
 
   # テスト中に、FactoryBot.create(:user) ではなく、create(:user) と書けるようにする
   config.include FactoryBot::Syntax::Methods
+
+  # Deviseが提供するヘルパーを使えるようにする
+  config.include Devise::Test::IntegrationHelpers, type: :system
 end
