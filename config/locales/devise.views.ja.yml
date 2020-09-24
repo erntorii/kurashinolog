@@ -78,8 +78,8 @@ ja:
     passwords:
       edit:
         change_my_password: パスワードを変更する
-        change_your_password: パスワードを変更
-        confirm_new_password: 確認用新しいパスワード
+        change_your_password: パスワードの変更
+        confirm_new_password: 新しいパスワード（確認用）
         new_password: 新しいパスワード
       new:
         forgot_your_password: パスワードの再設定

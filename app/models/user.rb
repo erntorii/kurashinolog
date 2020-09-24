@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 20 }
 
   def self.guest
     find_or_create_by!(name: 'ゲスト', email: 'guest@example.com') do |user|
