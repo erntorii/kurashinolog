@@ -24,8 +24,8 @@ RSpec.describe 'Users', type: :system do
   describe '新規登録/ログインの動作' do
     it 'sign_up' do
       visit new_user_registration_path
-      fill_in 'ユーザー名', with: 'テスター'
-      fill_in 'メールアドレス', with: 'tester@example.com'
+      fill_in 'ユーザー名', with: 'foo'
+      fill_in 'メールアドレス', with: 'foo@example.com'
       fill_in 'パスワード', with: 'password'
       fill_in 'パスワード（確認用）', with: 'password'
 
@@ -33,7 +33,7 @@ RSpec.describe 'Users', type: :system do
       expect(current_path).to eq root_path
       expect(page).to_not have_content 'かんたんログイン'
       expect(page).to have_content '投稿する'
-      expect(page).to have_content 'テスター'
+      expect(page).to have_content 'foo'
     end
 
     it 'sign_in' do
@@ -46,6 +46,37 @@ RSpec.describe 'Users', type: :system do
       expect(page).to_not have_content 'かんたんログイン'
       expect(page).to have_content '投稿する'
       expect(page).to have_content user.name
+    end
+  end
+
+  describe 'ユーザー編集/削除の動作' do
+    let!(:alice) { create(:alice) }
+    it 'edit' do
+      sign_in user
+      visit root_path
+      find('.dropdown-toggle').click
+      click_link '設定'
+
+      fill_in 'ユーザー名', with: 'bar'
+      fill_in '現在のパスワード', with: user.password
+      click_button '更新する'
+
+      expect(current_path).to eq root_path
+      expect(page).to_not have_content 'テスター'
+      expect(page).to have_content 'bar'
+    end
+
+    it 'destroy', js: true do
+      sign_in alice
+      visit edit_user_registration_path
+
+      expect do
+        page.accept_confirm { click_link 'アカウントを削除する' }
+        expect(current_path).to eq root_path
+        expect(page).to have_content 'かんたんログイン'
+        expect(page).to_not have_content '投稿する'
+        expect(page).to_not have_content 'アリス'
+      end.to change(User, :count).by(-1)
     end
   end
 
@@ -90,13 +121,25 @@ RSpec.describe 'Users', type: :system do
       find('.dropdown-toggle').click
       click_link '設定'
 
-      fill_in 'ユーザー名', with: 'hogehoge'
+      fill_in 'ユーザー名', with: 'baz'
       fill_in '現在のパスワード', with: guest_user.password
       click_button '更新する'
 
       expect(current_path).to eq root_path
-      expect(page).to_not have_content 'hogehoge'
+      expect(page).to_not have_content 'baz'
       expect(page).to have_content 'ゲスト'
+    end
+
+    it 'guest_destroy', js: true do
+      sign_in guest_user
+      visit edit_user_registration_path
+
+      expect do
+        page.accept_confirm { click_link 'アカウントを削除する' }
+        expect(current_path).to eq root_path
+        expect(page).to have_content '投稿する'
+        expect(page).to have_content 'ゲスト'
+      end.to change(User, :count).by(0)
     end
   end
 end
