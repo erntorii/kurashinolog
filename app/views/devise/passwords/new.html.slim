@@ -1,0 +1,9 @@
+- provide(:title, "#{t('.forgot_your_password')}")
+.col-md-6.offset-md-3
+  h1
+    = t('.forgot_your_password')
+  = bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = f.email_field :email, autofocus: true, required: true
+    = f.form_group do
+      = f.submit t('.send_me_reset_password_instructions'), class: 'btn btn-block'
+  = render 'devise/shared/links'

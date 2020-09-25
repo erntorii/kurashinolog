@@ -7,11 +7,12 @@ html
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css' rel='stylesheet'
     = render 'layouts/shim'
   body
     #wrap
       = render 'layouts/header'
-      = render 'layouts/welcome-index' if current_page?(root_path)
+      = render 'layouts/welcome-index' if current_page?(root_path) unless user_signed_in?
       .container#main
         = yield
       = render 'layouts/footer'

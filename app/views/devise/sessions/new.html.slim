@@ -1,0 +1,12 @@
+- provide(:title, "#{t('.sign_in')}")
+.col-md-6.offset-md-3
+  h1
+    = t('.sign_in')
+  = render 'layouts/flash_messages'
+  = bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    = f.email_field :email, autofocus: true, required: true
+    = f.password_field :password, required: true
+    = f.hidden_field :remember_me, value: true
+    = f.form_group do
+      = f.submit t('.sign_in'), class: 'btn btn-block'
+  = render 'devise/shared/links'

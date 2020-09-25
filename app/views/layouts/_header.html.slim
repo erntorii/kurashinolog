@@ -2,7 +2,23 @@ header.navbar.fixed-top.navbar-expand-lg.navbar-light
   .container
     = link_to '暮らしのログ', root_path, class: 'navbar-brand'
     ul.nav.justify-content-end
-      li.nav-item
-        = link_to '新規登録', '#', class: 'nav-link btn border-dark'
-      li.nav-item
-        = link_to 'ログイン', '#', class: 'nav-link'
+      - if user_signed_in?
+        li.nav-item.d-flex.align-items-center
+          = link_to '#' do
+            .nav-link.btn.btn-sm#btn-post
+              i.fas.fa-edit
+              span.ml-2.font-weight-bold 投稿する
+        li.nav-item.ml-2.dropdown
+          = link_to '#', class: 'nav-link small dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' do
+            = image_tag 'default.jpg', alt: 'mypage', width: 40, height: 40, class: 'rounded-circle border'
+            span.ml-2.mr-1 #{current_user.name}
+          .dropdown-menu
+            = link_to 'マイページ', '#', class: 'dropdown-item small'
+            = link_to '設定', edit_user_registration_path, class: 'dropdown-item small'
+            .dropdown-divider
+            = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'dropdown-item small'
+      - else
+        li.nav-item
+          = link_to '新規登録', new_user_registration_path, class: 'nav-link btn border-dark btn-sm'
+        li.nav-item
+          = link_to 'ログイン', new_user_session_path, class: 'nav-link small'

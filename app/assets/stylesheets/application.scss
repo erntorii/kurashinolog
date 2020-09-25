@@ -1,7 +1,15 @@
-@import 'bootstrap';
+@import 'bootstrap/scss/bootstrap';
+@import 'rails_bootstrap_forms';
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap');
 
+$theme-color: #a4b4b4;
+$red: #e44c24;
 $mincho: 'Noto Serif JP', serif;
+
+// 共通
+.btn:active {
+  box-shadow: none;
+}
 
 #wrap {
   display: flex;
@@ -19,7 +27,24 @@ header {
     font-family: $mincho;
   }
 
-  .nav-link {
+  a {
+    color: black;
+    &:hover {
+      color: black;
+      text-decoration: none;
+    }
+  }
+
+  #btn-post {
+    background: $theme-color;
+    color: white;
+    &:hover {
+      background: lighten($theme-color, 10%);
+    }
+  }
+
+  .dropdown-item:active {
+    background: #f8f9fa;
     color: black;
   }
 }
@@ -28,7 +53,7 @@ header {
   margin-top: 4em;
   margin-bottom: -4em;
   height: 25em;
-  background: #a4b4b4;
+  background: $theme-color;
   color: white;
 
   #welcome-message {
@@ -45,6 +70,42 @@ header {
 
 #main {
   margin-top: 8em;
+  margin-bottom: 4em;
+
+  .form-control {
+    border: 1px solid lighten($theme-color, 10%);
+    &:focus {
+      box-shadow: none;
+      border: 1px solid lighten($theme-color, 10%);
+    }
+  }
+
+  .btn {
+    background: $theme-color;
+    color: white;
+    border: none;
+    &:hover {
+      background: lighten($theme-color, 10%);
+    }
+  }
+
+  #btn-cancel {
+    background: $red;
+    color: white;
+    border: none;
+    text-decoration: none;
+    &:hover {
+      background: lighten($red, 10%);
+    }
+  }
+
+  a {
+    color: darken($theme-color, 10%);
+    text-decoration: underline;
+    &:hover {
+      color: $theme-color;
+    }
+  }
 }
 
 footer {

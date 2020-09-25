@@ -8,6 +8,6 @@ nav.navbar.navbar-expand-lg.navbar-light#welcome-index
       | 思いを記録する
     .justify-content-end
       p 登録しないですべての機能*をお試し
-      = link_to 'かんたんログイン', '#', class: 'btn btn-light'
+      = link_to 'かんたんログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-light'
       p.small.mt-5
         | *すべての機能の詳細については、#{link_to 'こちら', about_path}をご参照ください。

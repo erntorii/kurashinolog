@@ -32,9 +32,16 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim-rails'
 gem 'html2slim'
 
+# 日本語化
+gem 'rails-i18n', '~> 6.0'
+gem 'devise-i18n'
+
 # layouts
-gem 'bootstrap'
-gem 'jquery-rails'
+gem 'bootstrap_form'
+gem 'devise-bootstrap-views', '~> 1.0'
+
+# 認証機能
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -61,6 +68,9 @@ group :development do
   # 静的コード解析ツール
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+
+  # 環境変数の管理
+  gem 'dotenv-rails'
 end
 
 group :test do
@@ -68,7 +78,7 @@ group :test do
   gem 'capybara'
 
   # Chromeとやり取りするインターフェースになるChromeDriverをインストールするgem
-  gem 'webdrivers'
+  gem 'selenium-webdriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

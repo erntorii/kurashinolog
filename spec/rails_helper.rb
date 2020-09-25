@@ -62,4 +62,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # テスト中に、FactoryBot.create(:user) ではなく、create(:user) と書けるようにする
+  config.include FactoryBot::Syntax::Methods
+
+  # Deviseが提供するヘルパーを使えるようにする
+  config.include Devise::Test::IntegrationHelpers, type: :system
 end
