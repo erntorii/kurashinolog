@@ -1,4 +1,3 @@
-- provide(:user_image_size, '40')
 header.navbar.fixed-top.navbar-expand-lg.navbar-light
   .container
     = link_to '暮らしのログ', root_path, class: 'navbar-brand'
@@ -11,6 +10,7 @@ header.navbar.fixed-top.navbar-expand-lg.navbar-light
               span.ml-2.font-weight-bold 投稿する
         li.nav-item.ml-2.dropdown
           = link_to '#', class: 'nav-link small dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' do
+            - provide(:user_image_size, '40')
             = render 'devise/user_image'
             span.ml-2.mr-1 #{current_user.name}
           .dropdown-menu
