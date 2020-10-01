@@ -18,3 +18,21 @@ require("channels")
 
 require("jquery")
 require("bootstrap/dist/js/bootstrap")
+
+// プロフィール画像のプレビュー
+$(function() {
+  $('#img_input').change(function(e) {
+    // ファイルオブジェクトを取得する
+    var file = e.target.files[0];
+    var reader = new FileReader();
+
+    // アップロードした画像をプレビューする
+    reader.onload = (function(file) {
+      return function(e) {
+        $('#img_prev').attr('src', e.target.result);
+      };
+    })(file);
+    reader.readAsDataURL(file);
+
+  });
+});

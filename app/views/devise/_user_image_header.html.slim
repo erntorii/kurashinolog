@@ -1,0 +1,4 @@
+- if current_user.image.attached?
+  = image_tag current_user.image, alt: 'user_image', width: '40', height: '40', class: 'rounded-circle'
+- else
+  = image_tag 'default.jpg', alt: 'user_image', width: '40', height: '40', class: 'rounded-circle border'
