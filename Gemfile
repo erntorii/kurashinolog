@@ -43,6 +43,9 @@ gem 'devise-bootstrap-views', '~> 1.0'
 # 認証機能
 gem 'devise'
 
+# Active Storageバリデーション
+gem 'active_storage_validations'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
