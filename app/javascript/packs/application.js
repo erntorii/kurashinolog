@@ -25,14 +25,23 @@ $(function() {
     // ファイルオブジェクトを取得する
     var file = e.target.files[0];
     var reader = new FileReader();
+    var size_in_megabytes = e.target.files[0].size/1024/1024;
+
+    // アップロードする画像のファイルサイズをチェックする
+    if (size_in_megabytes > 1) {
+      alert('最大ファイルサイズは1MBです。小さいファイルを選択してください。');
+      $('#img_input').val('');
+    }
 
     // アップロードした画像をプレビューする
-    reader.onload = (function(file) {
-      return function(e) {
-        $('#img_prev').attr('src', e.target.result);
-      };
-    })(file);
-    reader.readAsDataURL(file);
+    else {
+      reader.onload = (function(file) {
+        return function(e) {
+          $('#img_prev').attr('src', e.target.result);
+        };
+      })(file);
+      reader.readAsDataURL(file);
+    }
 
   });
 });

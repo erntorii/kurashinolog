@@ -5,7 +5,7 @@
     = f.label :image, id: 'img_input' do
       p.small.font-weight-light#choose-file プロフィール画像の編集
       #form-hidden
-        = f.file_field :image
+        = f.file_field :image, accept: 'image/jpeg,image/gif,image/png'
     = render 'user_image_destroy' if current_user.image.attached?
     = f.text_field :name, autofocus: true, required: true, maxlength: '20'
     = f.email_field :email, required: true
