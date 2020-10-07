@@ -18,6 +18,6 @@ class User < ApplicationRecord
 
   # 表示用のリサイズ済み画像を返す
   def image80
-    image.variant(gravity: :center, resize:'80x80^', crop:'80x80+0+0').processed
+    image.variant(gravity: :center, resize: '80x80^', crop: '80x80+0+0').processed
   end
 end
