@@ -1,5 +1,5 @@
 .d-inline-block.mx-4.mb-4
   - if current_user.image.attached?
-    = image_tag current_user.image, alt: 'user_image', width: '80', height: '80', class: 'rounded-circle', id: 'img_prev'
+    = image_tag current_user.image80, alt: 'user_image', width: '80', height: '80', class: 'rounded-circle', id: 'img_prev'
   - else
     = image_tag 'default.jpg', alt: 'user_image', width: '80', height: '80', class: 'rounded-circle border', id: 'img_prev'
