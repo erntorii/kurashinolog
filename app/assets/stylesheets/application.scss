@@ -80,6 +80,18 @@ header {
     }
   }
 
+  #choose-file {
+    color: darken($theme-color, 10%);
+    &:hover {
+      color: $theme-color;
+      cursor: pointer;
+    }
+  }
+
+  #form-hidden {
+    display: none;
+  }
+
   .btn {
     background: $theme-color;
     color: white;

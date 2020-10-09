@@ -50,3 +50,7 @@ Style/Documentation:
 # `Rails.root.join`句を使用するファイルパス結合プロセスの使用法を無視
 Rails/FilePath:
   Enabled: false
+
+# 'only'や'except'オプションで指定されたメソッドのクラス内での定義を必須としない
+Rails/LexicallyScopedActionFilter:
+  Enabled: false

@@ -61,7 +61,7 @@ RSpec.describe 'Users', type: :system do
       fill_in '現在のパスワード', with: user.password
       click_button '更新する'
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq edit_user_registration_path
       expect(page).to_not have_content 'テスター'
       expect(page).to have_content 'bar'
     end
@@ -72,7 +72,6 @@ RSpec.describe 'Users', type: :system do
 
       expect do
         page.accept_confirm { click_link 'アカウントを削除する' }
-        expect(current_path).to eq root_path
         expect(page).to have_content 'かんたんログイン'
         expect(page).to_not have_content '投稿する'
         expect(page).to_not have_content 'アリス'
@@ -125,7 +124,7 @@ RSpec.describe 'Users', type: :system do
       fill_in '現在のパスワード', with: guest_user.password
       click_button '更新する'
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq edit_user_registration_path
       expect(page).to_not have_content 'baz'
       expect(page).to have_content 'ゲスト'
     end
@@ -136,7 +135,7 @@ RSpec.describe 'Users', type: :system do
 
       expect do
         page.accept_confirm { click_link 'アカウントを削除する' }
-        expect(current_path).to eq root_path
+        expect(current_path).to eq edit_user_registration_path
         expect(page).to have_content '投稿する'
         expect(page).to have_content 'ゲスト'
       end.to change(User, :count).by(0)
