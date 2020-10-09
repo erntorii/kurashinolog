@@ -21,7 +21,7 @@ jobs:
       - ruby/install-deps # rubyオーブを使用して依存関係をインストールする
       - node/install-packages: # nodeオーブを使用してパッケージをインストールする
           pkg-manager: yarn    # yarnを使用し、yarn.lockで依存関係をキャッシュするよう指定する
-          cache-key: 'yarn.lock'
+          cache-path: 'yarn.lock'
 
   test:
     parallelism: 3 # 「並列(=parallel)ジョブコンテナ」を実行して、テストの高速化を可能にする（テストが複数のコンテナに分割される）
@@ -46,7 +46,7 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: 'yarn.lock'
+          cache-path: 'yarn.lock'
       - run: # DB操作を実行する前にセカンダリコンテナが起動することを確認する
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
