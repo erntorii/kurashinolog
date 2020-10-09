@@ -29,7 +29,7 @@ jobs:
     docker:
       - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
-        TZ: Asia/Tokyo
+          TZ: Asia/Tokyo
           BUNDLE_JOBS: '3'
           BUNDLE_RETRY: '3'
           RAILS_ENV: test
