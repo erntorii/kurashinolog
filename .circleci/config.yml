@@ -44,8 +44,6 @@ jobs:
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: password
       - image: selenium/standalone-chrome:latest
-        ports:
-          - 4444:4444
     steps:
       - checkout
       - ruby/install-deps
