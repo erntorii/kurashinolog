@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
   node: circleci/node@4.1.0
-  browser-tools: circleci/browser-tools@1.0.1
 
 #  ジョブ実行環境の定義
 executors:
@@ -44,14 +43,15 @@ jobs:
           MYSQL_HOST: 127.0.0.1
           MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: password
+      - image: selenium/standalone-chrome:latest
+        ports:
+          - 4444:4444
     steps:
       - checkout
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
           cache-path: 'yarn.lock'
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
       - run: # DB操作を実行する前にセカンダリコンテナが起動することを確認する
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
