@@ -3,13 +3,14 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
   node: circleci/node@4.1.0
+  browser-tools: circleci/browser-tools@1.0.1
 
 #  ジョブ実行環境の定義
 executors:
   container:
     working_directory: ~/kurashinolog # ステップを実行するディレクトリ
     docker:
-      - image: cimg/ruby:2.7.1-node-browsers
+      - image: cimg/ruby:2.7.1-node
         environment:
           TZ: Asia/Tokyo
 
@@ -27,7 +28,7 @@ jobs:
     parallelism: 3 # 「並列(=parallel)ジョブコンテナ」を実行して、テストの高速化を可能にする（テストが複数のコンテナに分割される）
     working_directory: ~/kurashinolog
     docker:
-      - image: cimg/ruby:2.7.1-node-browsers # ステップコマンドが実行されるプライマリDockerイメージ
+      - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
           TZ: Asia/Tokyo
           BUNDLE_JOBS: '3'
@@ -37,7 +38,7 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_USERNAME: root
           DB_PASSWORD: password
-      - image: circleci/mysql:5.7
+      - image: cimg/mysql:5.7
         environment:
           MYSQL_DATABASE: ci_test
           MYSQL_HOST: 127.0.0.1
@@ -49,6 +50,8 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-path: 'yarn.lock'
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - run: # DB操作を実行する前にセカンダリコンテナが起動することを確認する
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
