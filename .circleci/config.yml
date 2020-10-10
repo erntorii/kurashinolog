@@ -9,7 +9,7 @@ executors:
   container:
     working_directory: ~/kurashinolog # ステップを実行するディレクトリ
     docker:
-      - image: cimg/ruby:2.7.1-node
+      - image: cimg/ruby:2.7.1-node-browsers
         environment:
           TZ: Asia/Tokyo
 
@@ -27,7 +27,7 @@ jobs:
     parallelism: 3 # 「並列(=parallel)ジョブコンテナ」を実行して、テストの高速化を可能にする（テストが複数のコンテナに分割される）
     working_directory: ~/kurashinolog
     docker:
-      - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
+      - image: cimg/ruby:2.7.1-node-browsers # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
           TZ: Asia/Tokyo
           BUNDLE_JOBS: '3'
@@ -54,9 +54,7 @@ jobs:
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: Database setup
-          command: |
-            bundle exec rails db:create
-            bundle exec rails db:schema:load --trace
+          command: bundle exec rails db:schema:load --trace
       - ruby/rspec-test # rspecを並列実行する
 
 # 上記のジョブを調整する
