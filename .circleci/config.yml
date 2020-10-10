@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
   node: circleci/node@4.1.0
+  browser-tools: circleci/browser-tools@1.0.1
 
 #  ジョブ実行環境の定義
 executors:
@@ -30,26 +31,22 @@ jobs:
       - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
           TZ: Asia/Tokyo
-          BUNDLE_JOBS: '3'
-          BUNDLE_RETRY: '3'
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
           RAILS_ENV: test
-          DB_DATABASE: ci_test
-          DB_HOST: 127.0.0.1
-          DB_USERNAME: root
-          DB_PASSWORD: password
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_DATABASE: ci_test
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_USER: root
-          MYSQL_ROOT_PASSWORD: password
-      - image: selenium/standalone-chrome:latest
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_HOST: '%'
     steps:
       - checkout
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
           cache-path: 'yarn.lock'
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run: mv config/database.yml.ci config/database.yml #CircleCI上のMySQLコンテナで構築される独自のDB設定に置き換える
       - run: # DB操作を実行する前にセカンダリコンテナが起動することを確認する
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
