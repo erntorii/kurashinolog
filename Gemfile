@@ -87,7 +87,7 @@ group :test do
   # Chromeとやり取りするインターフェースになるChromeDriverをインストールするgem
   gem 'selenium-webdriver'
 
-  #ciテストで使用
+  # ciテストで使用
   gem 'rspec_junit_formatter'
 end
 

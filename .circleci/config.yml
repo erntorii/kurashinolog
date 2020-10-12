@@ -53,9 +53,16 @@ jobs:
       - run:
           name: Database setup
           command: |
-            bundle exec rails db:create
-            bundle exec rails db:schema:load --trace
-      - ruby/rspec-test # rspecを並列実行する
+            bundle exec rails db:schema:load
+      - ruby/rubocop-check # rubocopを並列実行する
+      - run:
+          name: rspec
+          command: |
+            bundle exec rspec --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format documentation
+      - store_test_results:
+          path: test_results     
 
 # 上記のジョブを調整する
 workflows:
