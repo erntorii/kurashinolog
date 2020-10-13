@@ -86,6 +86,9 @@ group :test do
 
   # Chromeとやり取りするインターフェースになるChromeDriverをインストールするgem
   gem 'selenium-webdriver'
+
+  # ciテストで使用
+  gem 'rspec_junit_formatter'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

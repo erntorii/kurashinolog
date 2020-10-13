@@ -21,38 +21,40 @@ jobs:
       - ruby/install-deps # rubyオーブを使用して依存関係をインストールする
       - node/install-packages: # nodeオーブを使用してパッケージをインストールする
           pkg-manager: yarn    # yarnを使用し、yarn.lockで依存関係をキャッシュするよう指定する
-          cache-key: 'yarn.lock'
+          cache-path: 'yarn.lock'
 
   test:
     parallelism: 3 # 「並列(=parallel)ジョブコンテナ」を実行して、テストの高速化を可能にする（テストが複数のコンテナに分割される）
+    working_directory: ~/kurashinolog
     docker:
       - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
-          BUNDLE_JOBS: '3'
-          BUNDLE_RETRY: '3'
+          TZ: Asia/Tokyo
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
           RAILS_ENV: test
-          DB_DATABASE: ci_test
-          DB_HOST: 127.0.0.1
-          DB_USERNAME: root
-          DB_PASSWORD: password
       - image: circleci/mysql:5.7
         environment:
-          MYSQL_DATABASE: ci_test
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_USER: root
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_HOST: '%'
+      - image: selenium/standalone-chrome-debug:latest
+        name: chrome
     steps:
       - checkout
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-          cache-key: 'yarn.lock'
+          cache-path: 'yarn.lock'
+      - run: mv config/database.yml.ci config/database.yml #CircleCI上のMySQLコンテナで構築される独自のDB設定に置き換える
       - run: # DB操作を実行する前にセカンダリコンテナが起動することを確認する
           name: Wait for DB
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: Database setup
-          command: bundle exec rails db:schema:load -trace
+          command: |
+            bundle exec rails db:create
+            bundle exec rails db:schema:load
+      - ruby/rubocop-check # rubocopを並列実行する
       - ruby/rspec-test # rspecを並列実行する
 
 # 上記のジョブを調整する
