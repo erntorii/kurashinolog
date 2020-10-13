@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
   node: circleci/node@4.1.0
-  browser-tools: circleci/browser-tools@1.0.1
+  # browser-tools: circleci/browser-tools@1.0.1
 
 #  ジョブ実行環境の定義
 executors:
@@ -38,14 +38,16 @@ jobs:
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_ROOT_HOST: '%'
+      - image: selenium/standalone-chrome-debug:latest
+        name: chrome
     steps:
       - checkout
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
           cache-path: 'yarn.lock'
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
+      # - browser-tools/install-chrome
+      # - browser-tools/install-chromedriver
       - run: mv config/database.yml.ci config/database.yml #CircleCI上のMySQLコンテナで構築される独自のDB設定に置き換える
       - run: # DB操作を実行する前にセカンダリコンテナが起動することを確認する
           name: Wait for DB
