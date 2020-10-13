@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
   node: circleci/node@4.1.0
-  # browser-tools: circleci/browser-tools@1.0.1
 
 #  ジョブ実行環境の定義
 executors:
@@ -46,8 +45,6 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-path: 'yarn.lock'
-      # - browser-tools/install-chrome
-      # - browser-tools/install-chromedriver
       - run: mv config/database.yml.ci config/database.yml #CircleCI上のMySQLコンテナで構築される独自のDB設定に置き換える
       - run: # DB操作を実行する前にセカンダリコンテナが起動することを確認する
           name: Wait for DB
@@ -58,7 +55,7 @@ jobs:
             bundle exec rails db:create
             bundle exec rails db:schema:load
       - ruby/rubocop-check # rubocopを並列実行する
-      - ruby/rspec-test
+      - ruby/rspec-test # rspecを並列実行する
 
 # 上記のジョブを調整する
 workflows:
