@@ -10,10 +10,10 @@ orbs:
 # ジョブ実行環境の定義
 executors:
   container:
-    parameters:
-      prefix:
-        type: env_var_name
-        default: PREFIX
+    parameters: # working_directoryに渡す環境変数が変換されるようにする為に必要
+      prefix: # parameter名
+        type: env_var_name # 環境変数名タイプ
+        default: PREFIX # CircleCIで設定済みの環境変数名
     working_directory: ~/<<parameters.prefix>> # ステップを実行するディレクトリ
     docker:
       - image: cimg/ruby:2.7.1-node
@@ -75,7 +75,7 @@ jobs:
           path: docker/rails
           repo: '${PREFIX}_app'
           setup-remote-docker: true
-          workspace-root: ../..
+          workspace-root: ~
 
   build-and-push-web-image:
     executor: container
