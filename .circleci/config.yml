@@ -61,18 +61,15 @@ jobs:
       - ruby/rspec-test # rspecを並列実行する
 
   build-and-push-app-image:
-    excuter: container
+    executor: container
     steps:
       - aws-ecr/build-and-push-image:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_REGION
           path: docker/rails
           repo: '${PREFIX}_app'
           setup-remote-docker: true
 
   build-and-push-web-image:
-    excuter: container
+    executor: container
     steps:
       - aws-ecr/build-and-push-image:
           path: docker/nginx
@@ -96,7 +93,7 @@ jobs:
   #                            --overrides file://ecs/run_task_db_migrate.json
   
   run-task-for-db-migrate:
-    executer: container
+    executor: container
     steps:
       - checkout
       - aws-ecs/run-task:
@@ -104,10 +101,10 @@ jobs:
           task-definition: PREFIX
           launch-type: EC2
           awsvpc: false
-          overrides: {\\\"containerOverrides\\\":[{\\\"name\\\": \\\"kurashinolog\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}
+          overrides: {\\\"containerOverrides\\\":[{\\\"name\\\": \\\"${PREFIX}\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}
 
   service-update:
-    executer: container
+    executor: container
     steps:
       - checkout
       - aws-cli/install
