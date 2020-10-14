@@ -9,11 +9,11 @@ orbs:
 
 # ジョブ実行環境の定義
 executors:
-  parameters:
-    prefix:
-      type: env_var_name
-      default: PREFIX
   container:
+    parameters:
+      prefix:
+        type: env_var_name
+        default: PREFIX
     working_directory: '~/${<<parameters.prefix>>}' # ステップを実行するディレクトリ
     docker:
       - image: cimg/ruby:2.7.1-node
