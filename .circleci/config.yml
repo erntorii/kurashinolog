@@ -14,7 +14,7 @@ executors:
       prefix:
         type: env_var_name
         default: PREFIX
-    working_directory: ~/${<<parameters.prefix>>} # ステップを実行するディレクトリ
+    working_directory: ~/<<parameters.prefix>> # ステップを実行するディレクトリ
     docker:
       - image: cimg/ruby:2.7.1-node
         environment:
@@ -36,7 +36,7 @@ jobs:
       prefix:
         type: env_var_name
         default: PREFIX
-    working_directory: ~/${<<parameters.prefix>>}
+    working_directory: ~/<<parameters.prefix>>
     docker:
       - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
