@@ -10,7 +10,7 @@ orbs:
 # ジョブ実行環境の定義
 executors:
   container:
-    working_directory: ~/$PREFIX # ステップを実行するディレクトリ
+    working_directory: '~/${PREFIX}' # ステップを実行するディレクトリ
     docker:
       - image: cimg/ruby:2.7.1-node
         environment:
