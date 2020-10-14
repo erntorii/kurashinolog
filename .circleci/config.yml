@@ -75,6 +75,7 @@ jobs:
           path: docker/rails
           repo: '${PREFIX}_app'
           setup-remote-docker: true
+          workspace-root: ../..
 
   build-and-push-web-image:
     executor: container
