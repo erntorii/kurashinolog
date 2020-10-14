@@ -110,7 +110,7 @@ jobs:
           task-definition: PREFIX
           launch-type: EC2
           awsvpc: false
-          overrides: '{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"${PREFIX}_app\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}'
+          overrides: {\\\"containerOverrides\\\":[{\\\"name\\\": \\\"${PREFIX}_app\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}
 
   service-update:
     executor: container
