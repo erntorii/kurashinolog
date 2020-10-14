@@ -134,4 +134,4 @@ workflows:
             - build-and-push-web-image
       - service-update:
           requires:
-            - db-migrate-on-task-run
+            - run-task-for-db-migrate
