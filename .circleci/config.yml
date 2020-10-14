@@ -28,7 +28,7 @@ jobs:
 
   test:
     parallelism: 3 # 「並列(=parallel)ジョブコンテナ」を実行して、テストの高速化を可能にする（テストが複数のコンテナに分割される）
-    working_directory: ~/$PREFIX
+    working_directory: '~/${PREFIX}'
     docker:
       - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
@@ -64,6 +64,9 @@ jobs:
     excuter: container
     steps:
       - aws-ecr/build-and-push-image:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
           path: docker/rails
           repo: '${PREFIX}_app'
           setup-remote-docker: true
