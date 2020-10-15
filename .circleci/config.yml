@@ -105,6 +105,9 @@ jobs:
     executor: container
     steps:
       - checkout
+      - aws-cli/install
+      - aws-cli/setup:
+          aws-region: AWS_REGION
       - aws-ecs/run-task:
           cluster: PREFIX
           task-definition: PREFIX
