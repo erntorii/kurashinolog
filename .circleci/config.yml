@@ -109,8 +109,8 @@ jobs:
       - aws-cli/setup:
           aws-region: AWS_REGION
       - aws-ecs/run-task:
-          cluster: PREFIX
-          task-definition: kurashinolog
+          cluster: $PREFIX
+          task-definition: $PREFIX
           launch-type: EC2
           awsvpc: false
           overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"${PREFIX}_app\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}"
