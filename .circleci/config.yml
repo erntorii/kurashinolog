@@ -132,17 +132,32 @@ workflows:
   deploy-nginx:
     jobs:
       - build-and-push-web-image
+          filters:
+            branches:
+              only: master
       - service-update:
           requires:
             - build-and-push-web-image
           image: web # パラメータでwebイメージを指定
+          filters:
+            branches:
+              only: master
   deploy-rails:
     jobs:
       - build-and-push-app-image
+          filters:
+            branches:
+              only: master
       - run-task-for-db-migrate:
           requires:
             - build-and-push-app-image
+          filters:
+            branches:
+              only: master
       - service-update:
           requires:
             - run-task-for-db-migrate
           image: app # パラメータでappイメージを指定
+          filters:
+            branches:
+              only: master
