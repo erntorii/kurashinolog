@@ -84,22 +84,6 @@ jobs:
           path: docker/nginx
           repo: '${PREFIX}_web'
           setup-remote-docker: true
-
-  # run-task-for-db-migrate:
-  #   executer: container
-  #   steps:
-  #     - checkout
-  #     - aws-cli/setup:
-  #         aws-access-key-id: AWS_ACCESS_KEY_ID
-  #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-  #         aws-region: AWS_REGION
-  #     - run:
-  #         name: db migrate
-  #         command: |
-  #           aws ecs run-task --region $AWS_REGION \
-  #                            --cluster $PREFIX \
-  #                            --task-definition $PREFIX \
-  #                            --overrides file://ecs/run_task_db_migrate.json
   
   run-task-for-db-migrate:
     executor: container
@@ -116,7 +100,13 @@ jobs:
           overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"app\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}"
 
   service-update:
-    executor: container
+    parameters:
+      prefix:
+        type: env_var_name
+        default: PREFIX
+    working_directory: ~/<<parameters.prefix>>
+    docker:
+      - image: cimg/python:3.9.0
     steps:
       - checkout
       - aws-cli/install
