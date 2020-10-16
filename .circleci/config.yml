@@ -104,6 +104,9 @@ jobs:
       prefix:
         type: env_var_name
         default: PREFIX
+      image:
+        type: enum
+        enum: ['app', 'web']
     working_directory: ~/<<parameters.prefix>>
     docker:
       - image: cimg/python:3.9.0
@@ -115,7 +118,7 @@ jobs:
       - aws-ecs/update-service:
           family: $PREFIX
           cluster-name: $PREFIX
-          container-image-name-updates: 'container=${PREFIX},tag=latest'
+          container-image-name-updates: 'container=<<parameters.image>>,tag=latest'
 
 # 上記のジョブを調整する
 workflows:
@@ -126,13 +129,20 @@ workflows:
       - test:
           requires: # ビルドが成功してからテストを実行する
             - build
-  db-migrate-and-deploy:
+  deploy-nginx:
+    jobs:
+      - build-and-push-web-image
+      - service-update:
+          requires:
+            - build-and-push-web-image
+          image: web
+  deploy-rails:
     jobs:
       - build-and-push-app-image
-      - build-and-push-web-image
       - run-task-for-db-migrate:
           requires:
             - build-and-push-app-image
       - service-update:
           requires:
             - run-task-for-db-migrate
+          image: app
