@@ -123,8 +123,8 @@ jobs:
       - aws-cli/setup:
           aws-region: AWS_REGION
       - aws-ecs/update-service:
-          family: PREFIX
-          cluster-name: PREFIX
+          family: $PREFIX
+          cluster-name: $PREFIX
           container-image-name-updates: 'container=${PREFIX},tag=latest'
 
 # 上記のジョブを調整する
