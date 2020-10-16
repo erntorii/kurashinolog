@@ -135,21 +135,14 @@ workflows:
       - service-update:
           requires:
             - build-and-push-web-image
-          image: web
+          image: web # パラメータでwebイメージを指定
   deploy-rails:
     jobs:
       - build-and-push-app-image
-      # - run-task-for-db-migrate:
-      #     requires:
-      #       - build-and-push-app-image
-      # - service-update:
-      #     requires:
-      #       - run-task-for-db-migrate
-      #     image: app
-      - service-update:
-          requires:
-            - build-and-push-app-image
-          image: app
       - run-task-for-db-migrate:
           requires:
-            - service-update
+            - build-and-push-app-image
+      - service-update:
+          requires:
+            - run-task-for-db-migrate
+          image: app # パラメータでappイメージを指定

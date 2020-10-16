@@ -1,8 +1,0 @@
-{
-  "containerOverrides": [
-    {
-      "name": "kurashinolog_app",
-      "command": ["rails", "db:migrate"]
-    }
-  ]
-}
