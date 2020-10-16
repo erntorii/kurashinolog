@@ -131,7 +131,7 @@ workflows:
             - build
   deploy-nginx:
     jobs:
-      - build-and-push-web-image
+      - build-and-push-web-image:
           filters:
             branches:
               only: master
@@ -144,7 +144,7 @@ workflows:
               only: master
   deploy-rails:
     jobs:
-      - build-and-push-app-image
+      - build-and-push-app-image:
           filters:
             branches:
               only: master
