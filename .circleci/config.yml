@@ -139,10 +139,17 @@ workflows:
   deploy-rails:
     jobs:
       - build-and-push-app-image
-      - run-task-for-db-migrate:
-          requires:
-            - build-and-push-app-image
+      # - run-task-for-db-migrate:
+      #     requires:
+      #       - build-and-push-app-image
+      # - service-update:
+      #     requires:
+      #       - run-task-for-db-migrate
+      #     image: app
       - service-update:
           requires:
-            - run-task-for-db-migrate
+            - build-and-push-app-image
           image: app
+      - run-task-for-db-migrate:
+          requires:
+            - service-update
