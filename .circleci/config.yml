@@ -3,11 +3,18 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.1
   node: circleci/node@4.1.0
+  aws-ecr: circleci/aws-ecr@6.12.2
+  aws-ecs: circleci/aws-ecs@1.3.0
+  aws-cli: circleci/aws-cli@1.3.0
 
-#  ジョブ実行環境の定義
+# ジョブ実行環境の定義
 executors:
   container:
-    working_directory: ~/kurashinolog # ステップを実行するディレクトリ
+    parameters: # working_directoryに渡す環境変数が変換されるようにする為に必要
+      prefix: # parameter名
+        type: env_var_name # 環境変数名タイプ
+        default: PREFIX # CircleCIで設定済みの環境変数名
+    working_directory: ~/<<parameters.prefix>> # ステップを実行するディレクトリ
     docker:
       - image: cimg/ruby:2.7.1-node
         environment:
@@ -25,7 +32,11 @@ jobs:
 
   test:
     parallelism: 3 # 「並列(=parallel)ジョブコンテナ」を実行して、テストの高速化を可能にする（テストが複数のコンテナに分割される）
-    working_directory: ~/kurashinolog
+    parameters:
+      prefix:
+        type: env_var_name
+        default: PREFIX
+    working_directory: ~/<<parameters.prefix>>
     docker:
       - image: cimg/ruby:2.7.1-node # ステップコマンドが実行されるプライマリDockerイメージ
         environment: # プライマリコンテナに適用されるruby/rails固有の環境変数
@@ -57,6 +68,58 @@ jobs:
       - ruby/rubocop-check # rubocopを並列実行する
       - ruby/rspec-test # rspecを並列実行する
 
+  build-and-push-app-image:
+    executor: container
+    steps:
+      - aws-ecr/build-and-push-image:
+          dockerfile: docker/rails/Dockerfile
+          path: .
+          repo: '${PREFIX}_app'
+          setup-remote-docker: true
+
+  build-and-push-web-image:
+    executor: container
+    steps:
+      - aws-ecr/build-and-push-image:
+          path: docker/nginx
+          repo: '${PREFIX}_web'
+          setup-remote-docker: true
+  
+  run-task-for-db-migrate:
+    executor: container
+    steps:
+      - checkout
+      - aws-cli/install
+      - aws-cli/setup:
+          aws-region: AWS_REGION
+      - aws-ecs/run-task:
+          cluster: $PREFIX
+          task-definition: $PREFIX
+          launch-type: EC2
+          awsvpc: false
+          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"app\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}"
+
+  service-update:
+    parameters:
+      prefix:
+        type: env_var_name
+        default: PREFIX
+      image:
+        type: enum
+        enum: ['app', 'web']
+    working_directory: ~/<<parameters.prefix>>
+    docker:
+      - image: cimg/python:3.9.0
+    steps:
+      - checkout
+      - aws-cli/install
+      - aws-cli/setup:
+          aws-region: AWS_REGION
+      - aws-ecs/update-service:
+          family: $PREFIX
+          cluster-name: $PREFIX
+          container-image-name-updates: 'container=<<parameters.image>>,tag=latest'
+
 # 上記のジョブを調整する
 workflows:
   version: 2
@@ -64,5 +127,37 @@ workflows:
     jobs:
       - build
       - test:
-         requires: # ビルドが成功してからテストを実行する
-           - build
+          requires: # ビルドが成功してからテストを実行する
+            - build
+  deploy-nginx:
+    jobs:
+      - build-and-push-web-image:
+          filters:
+            branches:
+              only: master
+      - service-update:
+          requires:
+            - build-and-push-web-image
+          image: web # パラメータでwebイメージを指定
+          filters:
+            branches:
+              only: master
+  deploy-rails:
+    jobs:
+      - build-and-push-app-image:
+          filters:
+            branches:
+              only: master
+      - run-task-for-db-migrate:
+          requires:
+            - build-and-push-app-image
+          filters:
+            branches:
+              only: master
+      - service-update:
+          requires:
+            - run-task-for-db-migrate
+          image: app # パラメータでappイメージを指定
+          filters:
+            branches:
+              only: master
