@@ -10,7 +10,7 @@ header.navbar.fixed-top.navbar-expand-lg.navbar-light
               span.ml-2.font-weight-bold 投稿する
         li.nav-item.ml-2.dropdown
           = link_to '#', class: 'nav-link small dropdown-toggle', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' do
-            = render 'devise/user_image_header'
+            = render 'layouts/user_image/header'
             span.ml-2.mr-1 #{current_user.name}
           .dropdown-menu
             = link_to 'マイページ', '#', class: 'dropdown-item small'
