@@ -1,2 +1,12 @@
-h1 Users#show
-p Find me in app/views/users/show.html.slim
+.row
+  .col-md-2.offset-md-1
+    = render partial: 'layouts/user_image/main', locals: { size: 120 }
+  .col-md-6
+    h4.mt-2
+      = @user.name
+    .my-4
+      span 投稿<b>0</b>件
+      span.ml-4 フォロワー<b>0</b>人
+      span.ml-4 フォロー中<b>0</b>人
+    .mb-2
+      small ここに自己紹介文が入ります。

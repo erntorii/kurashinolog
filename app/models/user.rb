@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   # 表示用のリサイズ済み画像を返す
-  def image80
-    image.variant(gravity: :center, resize: '80x80^', crop: '80x80+0+0').processed
+  def image_resize
+    image.variant(gravity: :center, resize: '120x120^', crop: '120x120+0+0').processed
   end
 end

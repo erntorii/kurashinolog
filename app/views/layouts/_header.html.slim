@@ -14,7 +14,7 @@ header.navbar.fixed-top.navbar-expand-lg.navbar-light
             span.ml-2.mr-1 #{current_user.name}
           .dropdown-menu
             = link_to 'マイページ', user_path(id: current_user.id), class: 'dropdown-item small'
-            = link_to '設定', edit_user_registration_path(id: current_user.id), class: 'dropdown-item small'
+            = link_to '設定', edit_user_registration_path, class: 'dropdown-item small'
             .dropdown-divider
             = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'dropdown-item small'
       - else
