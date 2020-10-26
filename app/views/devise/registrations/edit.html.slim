@@ -11,7 +11,6 @@
     = f.email_field :email, required: true
     = f.password_field :password, help: t('.leave_blank_if_you_don_t_want_to_change_it'), minlength: @minimum_password_length
     = f.password_field :password_confirmation, minlength: @minimum_password_length
-    = f.password_field :current_password, required: true, help: t('.we_need_your_current_password_to_confirm_your_changes')
     = f.form_group do
       = f.submit t('.update'), class: 'btn btn-block'
     hr.my-5
