@@ -8,6 +8,7 @@
         = f.file_field :image, accept: 'image/jpeg,image/gif,image/png'
     = render 'layouts/user_image/destroy' if current_user.image.attached?
     = f.text_field :name, autofocus: true, required: true, maxlength: '20'
+    = f.text_area :profile, maxlength: '200'
     = f.email_field :email, required: true
     = f.password_field :password, help: t('.leave_blank_if_you_don_t_want_to_change_it'), minlength: @minimum_password_length
     = f.password_field :password_confirmation, minlength: @minimum_password_length
