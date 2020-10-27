@@ -27,7 +27,6 @@ RSpec.describe 'Users', type: :system do
       fill_in 'ユーザー名', with: 'foo'
       fill_in 'メールアドレス', with: 'foo@example.com'
       fill_in 'パスワード', with: 'password'
-      fill_in 'パスワード（確認用）', with: 'password'
 
       expect { click_button '新規登録' }.to change(User, :count).by(1)
       expect(current_path).to eq root_path
@@ -58,7 +57,6 @@ RSpec.describe 'Users', type: :system do
       click_link '設定'
 
       fill_in 'ユーザー名', with: 'bar'
-      fill_in '現在のパスワード', with: user.password
       click_button '更新する'
 
       expect(current_path).to eq edit_user_registration_path
@@ -121,7 +119,6 @@ RSpec.describe 'Users', type: :system do
       click_link '設定'
 
       fill_in 'ユーザー名', with: 'baz'
-      fill_in '現在のパスワード', with: guest_user.password
       click_button '更新する'
 
       expect(current_path).to eq edit_user_registration_path

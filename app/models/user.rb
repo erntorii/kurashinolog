@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_one_attached :image
   validates :name, presence: true, length: { maximum: 20 }
+  validates :profile, length: { maximum: 200 }
   validates :image, content_type: { in: %w[image/jpeg image/gif image/png] },
                     size: { less_than: 1.megabytes }
 
@@ -17,7 +18,7 @@ class User < ApplicationRecord
   end
 
   # 表示用のリサイズ済み画像を返す
-  def image80
-    image.variant(gravity: :center, resize: '80x80^', crop: '80x80+0+0').processed
+  def image_resize
+    image.variant(gravity: :center, resize: '120x120^', crop: '120x120+0+0').processed
   end
 end
