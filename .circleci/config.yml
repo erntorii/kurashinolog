@@ -97,7 +97,7 @@ jobs:
           task-definition: $PREFIX
           launch-type: EC2
           awsvpc: false
-          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"app\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate:reset\\\"]}]}"
+          overrides: "{\\\"containerOverrides\\\":[{\\\"name\\\": \\\"app\\\", \\\"command\\\": [\\\"rails\\\", \\\"db:migrate\\\"]}]}"
 
   service-update:
     parameters:
@@ -144,20 +144,20 @@ workflows:
               only: master
   deploy-rails:
     jobs:
-      - build-and-push-app-image
-          # filters:
-          #   branches:
-          #     only: master
+      - build-and-push-app-image:
+          filters:
+            branches:
+              only: master
       - run-task-for-db-migrate:
           requires:
             - build-and-push-app-image
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
       - service-update:
           requires:
             - run-task-for-db-migrate
           image: app # パラメータでappイメージを指定
-          # filters:
-          #   branches:
-          #     only: master
+          filters:
+            branches:
+              only: master
