@@ -145,12 +145,12 @@ workflows:
   deploy-rails:
     jobs:
       - build-and-push-app-image:
-          filters:
-            branches:
-              only: master
+          # filters:
+          #   branches:
+          #     only: master
       - run-task-for-db-migrate:
-          # requires:
-          #   - build-and-push-app-image
+          requires:
+            - build-and-push-app-image
           # filters:
           #   branches:
           #     only: master
