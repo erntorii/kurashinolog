@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :logs
   has_one_attached :image
   validates :name, presence: true, length: { maximum: 20 }
   validates :profile, length: { maximum: 200 }
