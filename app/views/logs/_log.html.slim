@@ -1,0 +1,19 @@
+#log-list
+  .d-flex.align-items-center.justify-content-between
+    .d-inline-block
+      = link_to log.user, class: 'link-body' do
+        - if log.user.image.attached?
+          = image_tag log.user.image_resize, alt: 'user_image', width: '30', height: '30', class: 'rounded-circle'
+        - else
+          = image_tag 'default.jpg', alt: 'user_image', width: '30', height: '30', class: 'rounded-circle border'
+        span.ml-2.text-x-small
+          = log.user.name
+    .d-inline-block
+      .text-x-small
+        = l log.created_at, format: :default
+  h5.font-weight-bold.mt-4
+    = link_to log.title, '#', class: 'link-body'
+  p.small.mt-4
+    = log.content
+  p.small.text-right
+    = link_to '続きを読む', '#'

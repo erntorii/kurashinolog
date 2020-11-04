@@ -45,5 +45,8 @@ module App
 
     # 日本語化
     config.i18n.default_locale = :ja
+
+    # タイムゾーン
+    config.time_zone = 'Asia/Tokyo'
   end
 end

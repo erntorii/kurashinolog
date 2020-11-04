@@ -1,10 +1,10 @@
 .row
   .col-md-2.offset-md-1
-    = render partial: 'layouts/user_image/main', locals: { size: 120 }
+    = render 'layouts/user_image/profile'
   .col-md-6
     h4.mt-2
       = @user.name
-      = render 'edit'
+      = render 'edit_icon'
     .my-4
       span 投稿<b>0</b>件
       span.ml-4 フォロワー<b>0</b>人

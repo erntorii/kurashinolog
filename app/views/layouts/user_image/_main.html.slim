@@ -1,5 +1,0 @@
-.d-inline-block.mx-4.mb-4
-  - if current_user.image.attached?
-    = image_tag current_user.image_resize, alt: 'user_image', width: "#{size}", height: "#{size}", class: 'rounded-circle', id: 'img_prev'
-  - else
-    = image_tag 'default.jpg', alt: 'user_image', width: "#{size}", height: "#{size}", class: 'rounded-circle border', id: 'img_prev'

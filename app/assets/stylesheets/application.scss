@@ -7,10 +7,12 @@ $red: #e44c24;
 $mincho: 'Noto Serif JP', serif;
 
 // 共通
+// ボタン押下時に青枠を表示させない
 .btn:active {
   box-shadow: none;
 }
 
+// ページ行数が少ない場合でもfooterが画面下に配置されるようにする
 #wrap {
   display: flex;
   flex-direction: column;
@@ -61,11 +63,6 @@ header {
     line-height: 1.4em;
     letter-spacing: 0.2em;
   }
-  
-  p a {
-    color: white;
-    text-decoration: underline;
-  }
 }
 
 #main {
@@ -75,7 +72,7 @@ header {
   .form-control {
     border: 1px solid lighten($theme-color, 10%);
     &:focus {
-      box-shadow: none;
+      box-shadow: none; // フォーム選択時に青枠を表示させない
       border: 1px solid lighten($theme-color, 10%);
     }
   }
@@ -117,6 +114,27 @@ header {
     &:hover {
       color: $theme-color;
     }
+  }
+  
+  .link-body {
+    color: black;
+    text-decoration: none;
+    &:hover {
+      color: black;
+    }
+  }
+
+  .text-x-small {
+    font-size: x-small;
+  }
+
+  .row-8 {
+    height: calc( 1.6em * 8 );
+    line-height: 1.6;
+  }
+
+  #log-list {
+    margin-bottom: 4em;
   }
 }
 

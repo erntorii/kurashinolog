@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    attributes:
+      log:
+        content: 本文
+        created_at: 作成日
+        title: タイトル
+        updated_at: 更新日
+    models:
+      log: ログ
+  time:
+    formats:
+      default: ! '%Y/%m/%d'
+      long: ! '%Y/%m/%d %H:%M'
