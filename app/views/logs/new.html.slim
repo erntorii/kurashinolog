@@ -1,7 +1,7 @@
 .row
   .col-md-10.offset-md-1
     = bootstrap_form_with(model: @log, local: true) do |f|
-      = f.text_field :title, autofocus: true, required: true, maxlength: '40'
+      = f.text_field :title, autofocus: true, required: true, maxlength: '60'
       = f.text_area :content, class: 'row-8', required: true
       = f.form_group do
         = f.submit '投稿する', class: 'btn'
