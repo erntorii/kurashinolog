@@ -19,10 +19,11 @@ require("channels")
 require("jquery")
 require("bootstrap/dist/js/bootstrap")
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('turbolinks:load', function() {
 
   // プロフィール画像のプレビュー
   const inputFile = document.getElementById('img_input');
+  if(inputFile === null) return;
   inputFile.addEventListener('change', function(e) {
     const file = e.target.files[0];
     const size = file.size/1024/1024; // megabytes
