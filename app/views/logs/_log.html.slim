@@ -12,8 +12,8 @@
       .text-x-small
         = l log.created_at, format: :default
   h5.font-weight-bold.mt-4
-    = link_to log.title, '#', class: 'link-body'
+    = link_to log.title, log, class: 'link-body'
   p.small.mt-4
     = log.content
   p.small.text-right
-    = link_to '続きを読む', '#'
+    = link_to '続きを読む', log

@@ -3,6 +3,11 @@ class LogsController < ApplicationController
     @logs = Log.all
   end
 
+  def show
+    @log = Log.find(params[:id])
+    @user = @log.user
+  end
+
   def new
     @log = current_user.logs.build
   end

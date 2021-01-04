@@ -12,4 +12,6 @@
     .mb-2
       small #{@user.profile}
 hr.my-5
-  p ここに投稿一覧を入れる予定
+.col-md-11
+  ol
+    = render @logs

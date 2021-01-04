@@ -1,0 +1,8 @@
+- if @user.image.attached?
+  = image_tag @user.image_resize, alt: 'user_image', width: '30', height: '30', class: 'rounded-circle'
+- else
+  = image_tag 'default.jpg', alt: 'user_image', width: '30', height: '30', class: 'rounded-circle border'
+span= @user.name
+p= l @log.created_at, format: :default
+h1= @log.title
+p= @log.content
