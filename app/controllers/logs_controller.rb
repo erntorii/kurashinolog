@@ -1,6 +1,6 @@
 class LogsController < ApplicationController
   def index
-    @logs = Log.all
+    @logs = Log.page(params[:page])
   end
 
   def show

@@ -1,2 +1,6 @@
 .col-md-8
   = render @logs
+
+  .mb-3
+    = paginate @logs
+    = page_entries_info @logs

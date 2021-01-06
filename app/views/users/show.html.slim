@@ -15,3 +15,7 @@ hr.my-5
 .col-md-11
   ol
     = render @logs
+
+    .mb-3
+      = paginate @logs
+      = page_entries_info @logs
