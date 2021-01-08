@@ -24,6 +24,6 @@ class LogsController < ApplicationController
   private
 
   def log_params
-    params.require(:log).permit(:title, :content)
+    params.require(:log).permit(:title, :content, images: [])
   end
 end
