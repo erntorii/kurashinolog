@@ -2,7 +2,9 @@
   = link_to log, class: 'link-body' do
     .mb-2
       - if log.images.attached?
-        = image_tag log.images.first.variant(combine_options: { gravity: :center, resize: '600x480^', crop: '600x480+0+0'}).processed, class: 'img-fluid', width: '100%', height: 'auto'
+        = image_tag log.images.first.variant(combine_options: { gravity: :center, resize: '1024x576^', crop: '1024x576+0+0'}).processed, class: 'img-fluid rounded log-image', width: '100%', height: 'auto'
+      - else
+        = image_tag '', class: 'img-fluid rounded', width: '100%', height: 'auto', alt: 'No Image'
     h5.font-weight-bold.mb-2
       = log.title
     p.small.mb-2
