@@ -1,21 +1,23 @@
 .row
-  .col-md-2.offset-md-1
+  .col-lg-2.col-md-3.offset-md-1
     = render 'layouts/user_image/profile'
-  .col-md-6
-    h4.mt-2
-      = @user.name
-      = render 'edit_icon'
+  .col-lg-6.col-md-7
+    .d-flex.align-items-center.mt-2
+      h4.m-0
+        = @user.name
+      - if @user == current_user
+        .ml-4
+          = link_to edit_user_registration_path, class: 'link-body' do
+            i.fas.fa-cog
     .my-4
       span 投稿<b>0</b>件
       span.ml-4 フォロワー<b>0</b>人
       span.ml-4 フォロー中<b>0</b>人
-    .mb-2
-      small #{@user.profile}
+    small
+      = @user.profile
 hr.my-5
-.col-md-11
-  ol
-    = render @logs
+= render @logs, grid: 'col-lg-4 col-md-6'
 
-    .mb-3
-      = paginate @logs
-      = page_entries_info @logs
+.mb-3
+  = paginate @logs
+  = page_entries_info @logs

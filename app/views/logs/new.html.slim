@@ -1,8 +1,2 @@
-.row
-  .col-md-10.offset-md-1
-    = bootstrap_form_with(model: @log, local: true) do |f|
-      = f.file_field :images, accept: 'image/jpeg,image/gif,image/png', multiple: true
-      = f.text_field :title, required: true, maxlength: '60'
-      = f.text_area :content, class: 'row-8', required: true
-      = f.form_group do
-        = f.submit '投稿する', class: 'btn'
+- provide(:button_text, '投稿する')
+= render 'form'

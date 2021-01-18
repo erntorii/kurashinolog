@@ -1,8 +1,26 @@
-- if @user.image.attached?
-  = image_tag @user.image_resize, alt: 'user_image', width: '30', height: '30', class: 'rounded-circle'
-- else
-  = image_tag 'default.jpg', alt: 'user_image', width: '30', height: '30', class: 'rounded-circle border'
-span= @user.name
-p= l @log.created_at, format: :default
-h1= @log.title
-p= @log.content
+.col-md-8
+  - if @log.image.attached?
+    = image_tag resize(@log.image), class: 'img-fluid'
+    .mb-5
+  h2.mb-4
+    = @log.title
+  .d-flex.align-items-center.mb-5
+    = link_to @log.user do
+      - if @user.image.attached?
+        = image_tag @user.image_resize, alt: 'user_image', width: '30', height: '30', class: 'rounded-circle'
+      - else
+        = image_tag 'default.jpg', alt: 'user_image', width: '30', height: '30', class: 'rounded-circle border'
+    .ml-2
+      p.small.font-weight-300.m-0
+        = link_to @user.name, @log.user, class: 'link-body'
+      p.small.font-weight-300.text-muted.m-0
+        = l @log.created_at, format: :long
+  span.log-content-format
+    = simple_format(@log.content)
+
+  - if @log.user == current_user
+    .mb-5
+    small.font-weight-300.float-right
+      = link_to '編集', edit_log_path
+      span  | 
+      = link_to '削除', log_path, data: { confirm: '本当によろしいですか？' }, method: :delete

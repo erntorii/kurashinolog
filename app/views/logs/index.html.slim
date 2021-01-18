@@ -1,6 +1,10 @@
-.col-md-8
-  = render @logs
+.row
+  .col-lg-8
+    = render @logs, grid: 'col-md-6'
 
-  .mb-3
-    = paginate @logs
-    = page_entries_info @logs
+    .mb-3
+      = paginate @logs
+      = page_entries_info @logs
+
+  .col-lg-4
+    p sidebar
