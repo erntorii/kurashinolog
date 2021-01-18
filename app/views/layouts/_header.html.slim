@@ -4,7 +4,7 @@ header.navbar.fixed-top.navbar-expand-lg.navbar-light
     ul.nav.justify-content-end
       - if user_signed_in?
         li.nav-item.d-flex.align-items-center
-          = link_to '#' do
+          = link_to new_log_path do
             .nav-link.btn.btn-sm#btn-post
               i.fas.fa-edit
               span.ml-2.font-weight-bold 投稿する

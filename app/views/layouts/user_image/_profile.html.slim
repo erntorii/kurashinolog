@@ -1,0 +1,4 @@
+- if @user.image.attached?
+  = image_tag @user.image_resize, alt: 'user_image', width: '120', height: '120', class: 'rounded-circle'
+- else
+  = image_tag 'default.jpg', alt: 'user_image', width: '120', height: '120', class: 'rounded-circle border'

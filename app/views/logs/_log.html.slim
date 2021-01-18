@@ -1,0 +1,23 @@
+div class="#{grid} d-inline-block"
+  = link_to log, class: 'link-body' do
+    .mb-2
+      - if log.image.attached?
+        = image_tag resize(log.image), class: 'img-fluid rounded log-image'
+      - else
+        = image_tag 'no_image.jpg', class: 'img-fluid rounded log-image', alt: 'No Image'
+    h5.font-weight-bold.title-omission.mb-2
+      = log.title
+    p.small.text-muted.font-weight-200.content-omission.mb-2
+      = log.content
+    .d-flex.align-items-center.justify-content-between
+      object
+        = link_to log.user, class: 'link-body' do
+          - if log.user.image.attached?
+            = image_tag log.user.image_resize, alt: 'user_image', width: '30', height: '30', class: 'rounded-circle'
+          - else
+            = image_tag 'default.jpg', alt: 'user_image', width: '30', height: '30', class: 'rounded-circle border'
+          span.ml-2.text-x-small
+            = log.user.name
+      .text-x-small
+        = l log.created_at, format: :default
+  .mb-5

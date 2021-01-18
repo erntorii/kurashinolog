@@ -19,29 +19,31 @@ require("channels")
 require("jquery")
 require("bootstrap/dist/js/bootstrap")
 
-// プロフィール画像のプレビュー
-$(function() {
-  $('#img_input').change(function(e) {
-    // ファイルオブジェクトを取得する
-    var file = e.target.files[0];
-    var reader = new FileReader();
-    var size_in_megabytes = e.target.files[0].size/1024/1024;
+document.addEventListener('turbolinks:load', function() {
 
-    // アップロードする画像のファイルサイズをチェックする
-    if (size_in_megabytes > 1) {
-      alert('最大ファイルサイズは1MBです。小さいファイルを選択してください。');
-      $('#img_input').val('');
+  // プロフィール画像のプレビュー
+  const inputFile = document.getElementById('img_input');
+  if(inputFile === null) return;
+  inputFile.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const size = file.size/1024/1024; // megabytes
+
+    // ファイルサイズの検証
+    if(size > 1) {
+      alert('選択できるファイルサイズは1MB以下です。');
+      inputFile.value = '';
     }
 
-    // アップロードした画像をプレビューする
     else {
-      reader.onload = (function(file) {
-        return function(e) {
-          $('#img_prev').attr('src', e.target.result);
-        };
-      })(file);
+      const reader = new FileReader();
       reader.readAsDataURL(file);
+      reader.onload = function() {
+        let prev = document.getElementsByClassName('img_prev');
+        for(let i=0; i < prev.length; i++) {
+          prev[i].src = reader.result;
+        }
+      }
     }
-
   });
+
 });

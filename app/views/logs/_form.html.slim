@@ -1,0 +1,34 @@
+.row
+  .col-md-10.offset-md-1
+    = bootstrap_form_with(model: @log, local: true) do |f|
+      .d-flex.align-items-center
+        span.m-0 画像
+        / span.m-0.ml-2.text-x-small.text-muted
+          | *最大4枚まで選択できます
+      .mb-2
+      = f.label :image, id: 'img_input' do
+        #form-hidden
+          = f.file_field :image, accept: 'image/jpeg,image/gif,image/png'
+        u.small.d-block.ml-3.mb-3#choose-file クリックで画像の選択
+        - if @log.image.attached?
+          = image_tag @log.image, alt: 'log_image', class: 'img-fluid img_prev post-log-image'
+        - else
+          = image_tag 'no_image.jpg', alt: 'log_image', class: 'img-fluid img_prev post-log-image'
+        / #form-hidden
+          .d-inline-block.col-lg-3.col-6.text-center.mb-3
+            = image_tag 'no_image.jpg', class: 'img-fluid'
+            = link_to '削除', '#', class: 'small'
+          .d-inline-block.col-lg-3.col-6.text-center.mb-3
+            = image_tag 'no_image.jpg', class: 'img-fluid'
+            = link_to '削除', '#', class: 'small'
+          .d-inline-block.col-lg-3.col-6.text-center.mb-3
+            = image_tag 'no_image.jpg', class: 'img-fluid'
+            = link_to '削除', '#', class: 'small'
+          .d-inline-block.col-lg-3.col-6.text-center.mb-3
+            = image_tag 'no_image.jpg', class: 'img-fluid'
+            = link_to '削除', '#', class: 'small'
+      .mb-3
+      = f.text_field :title, required: true, maxlength: '60'
+      = f.text_area :content, class: 'row-8', required: true
+      = f.form_group do
+        = f.submit yield(:button_text), class: 'btn'
