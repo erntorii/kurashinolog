@@ -1,24 +1,27 @@
-# README
+# Ruby on Rails によるWebアプリケーション
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サービス概要
 
-Things you may want to cover:
+### どんな用途？
+料理、掃除などの家事全般における備忘録を自分用に記録しておいたり、  
+思いついたアイディアなどを他の人と共有することができる。
 
-* Ruby version
+### 作った理由
+日々の暮らしには工夫がたくさん詰まっている。  
+こなしていく中で出会った発見や、いいなと思ったアイディアなどを他者と共有することによって、  
+生活全般の効率を上げる手助けをしたり、真似をして新しいことに挑戦できるような機会を設ける。  
 
-* System dependencies
+## 使用している技術
+バックエンド言語: Ruby  
+フレームワーク: Rails  
+テスト: RSpec  
+インフラ: AWS(ECS on EC2, RDS, Route53, 他)  
+インフラのコード化: Terraform  
+CI/CD: CircleCI  
+開発環境: Docker  
+フロントエンド: HTML/CSS, Bootstrap, JavaScript
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用しているGem
+認証機能: devise  
+ページネーション: kaminari  
+他
